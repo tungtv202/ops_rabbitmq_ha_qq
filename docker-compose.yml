@@ -1,0 +1,78 @@
+version: '3.7'
+
+volumes:
+  rabbitmq_volume:
+
+services:
+  rabbitmq1:
+    image: tungtv202/rabbitmq_ha_qq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    hostname: rabbitmq1
+    volumes:
+      - rabbitmq_volume:/var/lib/rabbitmq
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.hostname == ip-172-31-11-205
+      resources:
+        limits:
+          cpus: '1'
+          memory: '500MB'
+        reservations:
+          cpus: '0.5'
+          memory: '50MB'
+      restart_policy:
+        condition: on-failure
+
+
+  rabbitmq2:
+    image: tungtv202/rabbitmq_ha_qq
+    ports:
+      - "5677:5672"
+      - "15677:15672"
+#    cap_add:
+#      - ALL
+    hostname: rabbitmq2
+    volumes:
+      - rabbitmq_volume:/var/lib/rabbitmq
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.hostname == ip-172-31-3-230
+      resources:
+        limits:
+          cpus: '1'
+          memory: '500MB'
+        reservations:
+          cpus: '0.5'
+          memory: '50MB'
+      restart_policy:
+        condition: on-failure
+
+
+  rabbitmq3:
+    image: tungtv202/rabbitmq_ha_qq
+    ports:
+      - "5666:5672"
+      - "15666:15672"
+    hostname: rabbitmq3
+    volumes:
+      - rabbitmq_volume:/var/lib/rabbitmq
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.hostname == ip-172-31-1-3
+      resources:
+        limits:
+          cpus: '1'
+          memory: 500MB
+        reservations:
+          cpus: '0.5'
+          memory: 50MB
+      restart_policy:
+        condition: on-failure

@@ -1,0 +1,22 @@
+{
+  "global_parameters": [
+    {"name": "cluster_name", "value": "rabbitmq-qq"}
+  ],
+  "permissions": [
+    {
+      "configure": ".*",
+      "read": ".*",
+      "user": "tungtv",
+      "vhost": "/",
+      "write": ".*"
+    }
+  ],
+  "users": [
+    {
+      "name": "tungtv",
+      "password": "tungtv",
+      "tags": "administrator"
+    }
+  ],
+  "vhosts": [{"name": "/"}]
+}
