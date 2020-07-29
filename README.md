@@ -310,6 +310,16 @@
 
 ## 4. Setup Nginx
 - Khi mình sử dụng java springboot cấu hình rabbitmq client. Mình chỉ cần khai báo danh sách các broker các rabbitmq1, rabbitmq2, rabbitmq3 là được. Và thư viện tự động route cho mình tới broker đang "available".
+    - Đây là log của application khi có node bị down. Như bạn thấy thì nó ERROR báo shutdown, xong lập tức restart lại để kết nối tới broker khác 
+    ![https://tungexplorer.s3.ap-southeast-1.amazonaws.com/rabbitmq/rbmq_spring.PNG](https://tungexplorer.s3.ap-southeast-1.amazonaws.com/rabbitmq/rbmq_spring.PNG)
+    - Nếu sử dụng spring boot cấu hình rabbit, thì rất đơn giản
+    ```
+    spring:
+          rabbitmq:
+            addresses: 192.168.1.225:5775,192.168.1.245:5776,192.168.1.249:5777
+            username: tungtv
+            password: tungtv
+    ```
 - Trường hợp thư viện không hỗ trợ, chúng ta cần 1 endpoint đứng ngoài hứng. Và check trước khi route vào broker đang available.
 - Có thể sử dụng nginx. Với cấu hình đơn giản sau
     ```
